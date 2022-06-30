@@ -43,28 +43,9 @@ class World {
     const spotLight = createSpotLight(0, 20, 0, 0, 1, 0.4, true, 0xffffff);
     spotLight.target = teapot;
 
-    // const cube1 = createCube1();
-    // const cube2 = createCube();
-    // const cube3 = createCube2();
-    // const cube4 = createCube3();
-    // let human = createHuman();
-    // human.scale.set(0.05, 0.05 , 0.05);
-    // cube1.position.x += 2;
-    // cube1.rotation.set(0, 0, 0);
-    // cube2.rotation.set(0, 0, 0);
-    // loop.updatables.push(cube1);
-    // loop.updatables.push(cube2);
-    // loop.updatables.push(human);
+    
     loop.updatables.push(spotLight1);
-    // for(let i = 0; i < 4; i++) {
-    //   loop.updatables.push(cube3[i]);
-    //   scene.add(cube3[i]);
-    // }
-
-    // for(let i = 0; i < 50; i++) {
-    //   loop.updatables.push(cube4[i]);
-    //   scene.add(cube4[i]);
-    // }
+    
 
 
     // scene.add(cube1);
@@ -75,7 +56,7 @@ class World {
     // scene.add(cube);
     // scene.add(cone);
     // scene.add(cylinder);
-    scene.add(wheels);
+    //scene.add(wheels);
     
     this.createGUIDAT(teapot, wheels, spotLight, spotLight1, scene);
     // loop.updatables.push(teapot);
