@@ -27,5 +27,7 @@ function createCone(scale = 1, cx=0,cy=0,cz=0, r = 10, h = 10, step = 100) {
     const b = vertices.map(function(x) {return x * scale;});
     Cone.setAttribute("position", new THREE.Float32BufferAttribute(b, 3));
     const mesh = new THREE.Mesh(Cone, material);
+    mesh.geometry.computeFaceNormals();
+    mesh.geometry.computeVertexNormals();
     return mesh;
 }

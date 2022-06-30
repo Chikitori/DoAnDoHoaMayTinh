@@ -1,6 +1,6 @@
 export{createSphere}
 
-function createSphere(r=1, lats = 30, longs = 30, latss = 0, longss = 0, wireframe = true, cx= 0, cy = 0, cz = 0, lr = true, color = 0xffffff){
+function createSphere(r=1, lats = 30, longs = 30, latss = 0, longss = 0, wireframe = false, cx= 0, cy = 0, cz = 0, lr = true, color = 0xffffff){
     const sphere = new THREE.BufferGeometry();
     const texture = new THREE.TextureLoader().load('../Image/ComGa.jpg', 
         function ( texture ) {
@@ -66,5 +66,7 @@ function createSphere(r=1, lats = 30, longs = 30, latss = 0, longss = 0, wirefra
     const b = vertices.map(function(x) {return x;});
     sphere.setAttribute("position", new THREE.Float32BufferAttribute(b, 3));
     const mesh = new THREE.Mesh(sphere, material);
+    mesh.geometry.computeFaceNormals();
+    mesh.geometry.computeVertexNormals();
     return mesh;
 }

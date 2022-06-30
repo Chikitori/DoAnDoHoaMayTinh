@@ -32,54 +32,16 @@ class World {
     container.append(renderer.domElement);
 
     const plane = createPlane(0, 0, 0, 200, 200, Math.PI/2, Math.PI, Math.PI);
-    const sphere = createSphere(5, 30, 30, 0, 0);
-    const cube = createCube(5, 0, 0 , 0);
-    const cone = createCone(1,0,30,0,5);
-    const cylinder = createCylinder(1, 0, 0, 30 ,5);
-    const wheels = createWheel(10, -70, 0, 0, false);
+    const sphere = createSphere(1, 30, 30, 0, 0, false, 0, 2, 0);
     const teapot = createTeapot(1,2,1);
     const spotLight1 = createSpotLight(-100, 20, 0, 50, 0.5, 0.4, true, 0xffffff);
     spotLight1.target = teapot;
     const spotLight = createSpotLight(0, 20, 0, 0, 1, 0.4, true, 0xffffff);
     spotLight.target = teapot;
-
-    // const cube1 = createCube1();
-    // const cube2 = createCube();
-    // const cube3 = createCube2();
-    // const cube4 = createCube3();
-    // let human = createHuman();
-    // human.scale.set(0.05, 0.05 , 0.05);
-    // cube1.position.x += 2;
-    // cube1.rotation.set(0, 0, 0);
-    // cube2.rotation.set(0, 0, 0);
-    // loop.updatables.push(cube1);
-    // loop.updatables.push(cube2);
-    // loop.updatables.push(human);
     loop.updatables.push(spotLight1);
-    // for(let i = 0; i < 4; i++) {
-    //   loop.updatables.push(cube3[i]);
-    //   scene.add(cube3[i]);
-    // }
-
-    // for(let i = 0; i < 50; i++) {
-    //   loop.updatables.push(cube4[i]);
-    //   scene.add(cube4[i]);
-    // }
-
-
-    // scene.add(cube1);
-    // scene.add(cube2);
-    // scene.add(human);
-
-    // scene.add(sphere);
-    // scene.add(cube);
-    // scene.add(cone);
-    // scene.add(cylinder);
-    scene.add(wheels);
-    
-    this.createGUIDAT(teapot, wheels, spotLight, spotLight1, scene);
-    // loop.updatables.push(teapot);
-    scene.add(teapot);
+    scene.add(sphere);
+    sphere.scale.set(5, 5, 5);
+    this.createGUIDAT(sphere, spotLight, spotLight1, scene);
     scene.add(plane);
     scene.add(spotLight1);
     scene.add(spotLight);
@@ -103,7 +65,7 @@ class World {
     loop.stop();
   }
 
-  createGUIDAT(teapot, wheels, spotLight, spotLight1, scene){
+  createGUIDAT(teapot,spotLight, spotLight1, scene){
     this.controlsGUI = {
       rotationX : 0,
       rotationY : 0,
@@ -192,97 +154,26 @@ class World {
       }
     });
 
-    first.add(displayModeGUI, 'wireframe').name('Wireframe').listen().onChange(function(){setChecked("wireframe", displayModeGUI); setWireframe(teapot, wheels);});
-    first.add(displayModeGUI, 'solid').name('Solid').listen().onChange(function(){setChecked("solid", displayModeGUI); setSolid(teapot, wheels);});
+    first.add(displayModeGUI, 'wireframe').name('Wireframe').listen().onChange(function(){setChecked("wireframe", displayModeGUI); setWireframe(teapot);});
+    first.add(displayModeGUI, 'solid').name('Solid').listen().onChange(function(){setChecked("solid", displayModeGUI); setSolid(teapot);});
     function setChecked(prop, list){
       for (let param in list){
         list[param] = false;
       }
         list[prop] = true;
     }
-    function setWireframe(teapot, wheels) {
-      wheels.material = new THREE.MeshPhongMaterial({
+    function setWireframe(teapot) {
+      teapot.material = new THREE.MeshPhongMaterial({
         color:0xffffff,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        point:true
-      });
-
-      teapot.getObjectByName('Body').material = new THREE.MeshPhongMaterial({
-        color:0xc4c4c4,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        point:true
-      });
-
-      teapot.getObjectByName('Head').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        point:true
-      });
-
-      teapot.getObjectByName('TopHead').material = new THREE.MeshPhongMaterial({
-        color:0xe4e4e4,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        point:true
-      });
-
-        
-      teapot.getObjectByName('Tail').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
-        side: THREE.DoubleSide,
-        wireframe: true,
-        point:true
-      });
-
-      teapot.getObjectByName('Gunn').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
         side: THREE.DoubleSide,
         wireframe: true,
         point:true
       });
     }
   
-    function setSolid(teapot, wheels){
-      wheels.material = new THREE.MeshPhongMaterial({
+    function setSolid(teapot){
+      teapot.material = new THREE.MeshPhongMaterial({
         color:0xffffff,
-        side: THREE.DoubleSide,
-        wireframe: false,
-        point:true
-      });
-      teapot.getObjectByName('Body').material = new THREE.MeshPhongMaterial({
-        color:0xc4c4c4,
-        side: THREE.DoubleSide,
-        wireframe: false,
-        point:true
-      });
-
-      teapot.getObjectByName('Head').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
-        side: THREE.DoubleSide,
-        wireframe: false,
-        point:true
-      });
-
-      teapot.getObjectByName('TopHead').material = new THREE.MeshPhongMaterial({
-        color:0xe4e4e4,
-        side: THREE.DoubleSide,
-        wireframe: false,
-        point:true
-      });
-
-        
-      teapot.getObjectByName('Tail').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
-        side: THREE.DoubleSide,
-        wireframe: false,
-        point:true
-      });
-
-      teapot.getObjectByName('Gunn').material = new THREE.MeshPhongMaterial({
-        color:0xd4d4d4,
         side: THREE.DoubleSide,
         wireframe: false,
         point:true
